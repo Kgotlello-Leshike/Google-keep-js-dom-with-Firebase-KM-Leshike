@@ -8,8 +8,6 @@ class Note {
   
   class App {
     constructor() {
-      // localStorage.setItem('test', JSON.stringify(['123']));
-      // console.log(JSON.parse(localStorage.getItem('test')));
       this.notes = [];
       this.selectedNoteId = "";
       this.miniSidebar = true;
@@ -65,7 +63,7 @@ class Note {
       });
      }
 
-    redirectToApp() {
+    redirectToApp(userId) {
       this.$firebaseAuthContainer.style.display = "none";
       this.$app.style.display = "block";
       this.fetchNotesFromDB();
@@ -78,9 +76,6 @@ class Note {
       this.ui.start('#firebaseui-auth-container', {
           callbacks: {
             signInSuccessWithAuthResult: (authResult, redirectUrl) => {
-              // User successfully signed in.
-              // Return type determines whether we continue the redirect automatically
-              // or whether we leave that to developer to handle.
               console.log("authResult",  authResult.user.uid);
               this.userId = authResult.user.uid;
               this.$authUserText.innerHTML = user.displayName;
@@ -289,7 +284,6 @@ class Note {
       this.displayNotes();
     }
   
-  // onmouseover="app.handleMouseOverNote(this)" onmouseout="app.handleMouseOutNote(this)"
   
     displayNotes() {
       this.$notes.innerHTML = this.notes
